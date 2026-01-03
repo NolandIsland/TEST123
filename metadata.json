@@ -1,0 +1,7 @@
+{
+  "name": "BING CHUNG Store Audit System",
+  "description": "A comprehensive store audit application for BING CHUN branches featuring zero-tolerance compliance checks, detailed operational reviews, and AI-powered improvement suggestions.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
