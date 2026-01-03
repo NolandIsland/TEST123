@@ -5,7 +5,8 @@ import { ZERO_TOLERANCE_ITEMS, OPERATIONAL_ITEMS } from './constants';
 import ChecklistItemCard from './components/ChecklistItemCard';
 import { getAuditSuggestions } from './services/geminiService';
 
-const LOGO_URL = './logo.svg';
+// Using the exact logo URL provided in your prompt
+const LOGO_URL = 'https://generativelabs-prod--static-bucket.s3.us-west-2.amazonaws.com/67bb3365f577f88417c82305/0c176e73-9a3d-4c3d-b286-98eb10f3c509.png';
 
 // User Database
 const AUTHORIZED_USERS = [
@@ -122,58 +123,79 @@ const App: React.FC = () => {
   if (view === 'login') {
     return (
       <div className="min-h-screen flex items-center justify-center p-6 bg-blue-50">
-        <div className="w-full max-w-md bg-white rounded-3xl shadow-xl p-8 border border-blue-100">
-          <div className="flex flex-col items-center mb-8 text-center">
+        <div className="w-full max-w-md bg-white rounded-3xl shadow-2xl p-8 border border-blue-100">
+          <div className="flex flex-col items-center mb-10 text-center">
             {/* Logo Container */}
-            <div className="relative w-56 h-56 mb-2 flex items-center justify-center">
+            <div className="relative w-64 h-64 mb-4 flex items-center justify-center">
               {!logoError ? (
                 <img 
                   src={LOGO_URL} 
-                  alt="BING CHUN Logo" 
-                  className="w-full h-full object-contain hover:scale-105 transition-transform duration-500 drop-shadow-sm"
+                  alt="BING CHUN Mascot" 
+                  className="w-full h-full object-contain hover:scale-105 transition-transform duration-500 drop-shadow-xl"
                   onError={() => setLogoError(true)}
                 />
               ) : (
-                <div className="flex flex-col items-center justify-center bg-blue-50 w-40 h-40 rounded-full border-4 border-blue-100">
-                   <span className="text-4xl">🥤</span>
-                   <span className="text-xs text-blue-400 mt-2 font-bold">Logo Missing</span>
+                <div className="flex flex-col items-center justify-center bg-blue-100 w-48 h-48 rounded-full border-4 border-blue-200">
+                   <span className="text-6xl">🥤</span>
+                   <span className="text-xs text-blue-600 mt-4 font-black uppercase tracking-widest">BING CHUN</span>
                 </div>
               )}
             </div>
-            <h1 className="text-3xl font-black text-blue-900 tracking-tight">BING CHUN</h1>
-            <p className="text-blue-600 font-bold uppercase tracking-widest text-xs mt-1">Audit Portal</p>
+            <h1 className="text-4xl font-black text-blue-900 tracking-tighter">BING CHUN</h1>
+            <div className="bg-blue-600 text-white text-[10px] font-black px-3 py-1 rounded-full mt-2 tracking-[0.2em] uppercase">
+              Store Audit Portal
+            </div>
           </div>
-          <form onSubmit={handleLogin} className="space-y-5">
-            <div>
-              <label className="block text-sm font-bold text-gray-700 mb-2 text-left w-full">Username</label>
-              <input
-                type="text"
-                value={user.username}
-                onChange={(e) => setUser({ ...user, username: e.target.value })}
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500 outline-none transition-all"
-                placeholder="Enter username"
-                required
-              />
+          
+          <form onSubmit={handleLogin} className="space-y-6">
+            <div className="space-y-2">
+              <label className="block text-sm font-bold text-gray-700 ml-1">Auditor Username</label>
+              <div className="relative">
+                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+                  </svg>
+                </span>
+                <input
+                  type="text"
+                  value={user.username}
+                  onChange={(e) => setUser({ ...user, username: e.target.value })}
+                  className="w-full pl-12 pr-4 py-4 rounded-2xl border-2 border-gray-100 focus:border-blue-500 focus:ring-0 outline-none transition-all text-gray-800 font-medium"
+                  placeholder="e.g. Henry Liu"
+                  required
+                />
+              </div>
             </div>
-            <div>
-              <label className="block text-sm font-bold text-gray-700 mb-2 text-left w-full">Password</label>
-              <input
-                type="password"
-                value={user.password}
-                onChange={(e) => setUser({ ...user, password: e.target.value })}
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500 outline-none transition-all"
-                placeholder="Enter password"
-                required
-              />
+            
+            <div className="space-y-2">
+              <label className="block text-sm font-bold text-gray-700 ml-1">Access Password</label>
+              <div className="relative">
+                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
+                  </svg>
+                </span>
+                <input
+                  type="password"
+                  value={user.password}
+                  onChange={(e) => setUser({ ...user, password: e.target.value })}
+                  className="w-full pl-12 pr-4 py-4 rounded-2xl border-2 border-gray-100 focus:border-blue-500 focus:ring-0 outline-none transition-all text-gray-800"
+                  placeholder="••••••••"
+                  required
+                />
+              </div>
             </div>
+
             <button
               type="submit"
-              className="w-full bg-blue-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-blue-700 transition-colors shadow-lg shadow-blue-200"
+              className="w-full bg-blue-600 text-white py-4 rounded-2xl font-black text-xl hover:bg-blue-700 transition-all shadow-xl shadow-blue-100 hover:shadow-blue-200 active:scale-95"
             >
-              Sign In
+              Enter Dashboard
             </button>
-            <div className="text-center text-[10px] text-gray-400 font-medium">
-              Secured Audit System v2.2
+            
+            <div className="pt-4 flex items-center justify-between text-[10px] text-gray-400 font-bold uppercase tracking-widest px-1">
+              <span>Secure Access</span>
+              <span>v2.2.0</span>
             </div>
           </form>
         </div>
@@ -181,6 +203,7 @@ const App: React.FC = () => {
     );
   }
 
+  // ... rest of the component views (branch, audit, summary) remain same as provided in previous full App.tsx ...
   if (view === 'branch') {
     return (
       <div className="min-h-screen p-6 max-w-2xl mx-auto flex flex-col justify-center">
